@@ -1,0 +1,179 @@
+{% extends 'public/templates/public_templates.html' %}
+
+{% import 'macros/input_macros.html' as im%}
+
+{% block title %}Jinja{% endblock %}
+
+{% block main %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1>Notification</h1>
+            <!-- <p>{{profile}}</p> -->
+
+            <hr>
+            <ul>
+            
+            {% for lang in profile %}
+
+                
+                <li>
+                    <p>
+                      
+                       <b>
+                           <a href="{{url_for('post',post_id=lang.owner)}}">
+
+                               {{ lang.owner }} :
+                           </a>
+                       </b>
+                        <!-- has open your profile -->
+                        has {{lang.id}} your profile at {{ lang.time|low }}
+                     
+                     
+                        <!-- {{lang[loop.index-1]}} your profile  -->
+                      
+                       
+                       
+                    </p>
+                </li>
+               
+                <!-- {{ lang.profile_pic }}  -->
+                
+                {% endfor %}
+            </ul>
+            <!--
+                <h4>looping with index </h4>
+                <hr>
+                <ul>
+                {% for lang in langs %}
+                <li>
+                    {{ loop.index0 }}:{{ lang }}
+                </li>
+                
+                {% endfor %}
+            </ul>
+            <h4>looping keys,values</h4>
+            <hr>
+            <ul>
+                {% for k, v in friends.items() %}
+                <li>
+                    {{ k }}:{{ v }}
+                </li>
+                
+                {% endfor %}
+            </ul>
+
+            <h4>looping keys</h4>
+            <hr>
+            <ul>
+                {% for k in friends.keys() %}
+                <li>
+                    {{ k }}
+                </li>
+                
+                {% endfor %}
+            </ul>
+
+            <h4>Accesing list member keys</h4>
+            <hr>
+            <ul>
+                {% for k in friends.keys() %}
+                <li>
+                    {{ k }}
+                </li>
+                
+                {% endfor %}
+            </ul>
+
+            <h4>Accesing a member</h4>
+            <hr>
+            <p>{{langs[0]}}</p>
+
+          
+
+            <h4>Accesing a class</h4>
+            <hr>
+            <p>{{ my_remote.name}}</p>
+            <p>{{ my_remote.discription}}</p>
+            <p>{{ my_remote.url}}</p>
+
+            <h4>unpack variables</h4>
+            <hr>
+            setting new variables in our template
+            {% set a,b = colours %}
+            <p>{{ a }}</p>
+            <p>{{ b }}</p>
+            
+            <h4>calling a function</h4>
+            <hr>
+            <!-- setting new variables in our template-->
+            <!-- <p>{{ repeat('FLASK IS AWESOME',10) }}</p> -->
+            
+             <!-- <h4>calling a function clone</h4> -->
+            <hr>
+            <!-- setting new variables in our template-->
+            <!-- <p>{{ my_remote.clone() }}</p> -->
+            
+            <!-- <h4>calling a function clone</h4> -->
+            <hr>
+            <!-- setting new variables in our template -->
+            <p>{{ my_remote.clone() }}</p>
+            
+            <hr>
+            <h4>conditional</h4>
+            <!-- checking the cool variable -->
+            {% if cool %}
+            <p> Hey you are ,{{ cool }}</p>
+            {% endif %}
+            
+            <hr>
+            <h4>comparison</h4>
+            <!-- checking the cool variable -->
+            {% if age < 18 %}
+            <p> No entry</p>
+            {% elif age < 26%}
+            <p>Nearly old enough</p>
+            {% else %}
+            <p>You may enter</p>
+            {% endif %}
+            <hr>
+            <h4>Math</h4>
+            <p>{{ age/2 }}</p>
+            <hr>
+            
+            <h4>Template filters</h4>
+            <p>{{friends | length}}</p>
+            <p>{{my_name | reverse}}</p>
+            <p>{{my_name | upper}}</p>
+            
+            <hr>
+            <h4>Join filters</h4>
+            <p>{{langs | join(', ')}}</p>
+            
+       
+
+            <hr>
+            <h4>Escaping</h4>
+            {{ my_html | safe }}
+            
+            <hr>
+          
+
+            {{ im.input(label='Your name',name='name',id='name',placeholder='Please enter your name')}}
+            {{ im.input(label='Age',name='name',type='number',id='name',placeholder='Please enter your age')}}
+            {{ im.input(label='password',type='password',name='name',id='name',placeholder='Please enter your password')}}
+            
+            <!-- <hr>
+            <h4>Escaping</h4>
+            {{  suspicious | safe }} -->
+
+
+
+
+
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

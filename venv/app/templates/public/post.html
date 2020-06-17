@@ -1,0 +1,91 @@
+{% extends 'public/templates/public_templates.html'%}
+
+{% block title %}Profile{% endblock %}
+
+{% block main %}
+<article>
+    <div class="content-section">
+        <div class="row">
+            <div class="col md-4">
+            
+                <!-- <p>{{ author }}</p> -->
+          
+                
+
+                <div class="container" style="overflow-x:auto;">
+                  <table>
+                    <tr valign="top">
+                      <div class="container">
+                        
+                        <td><img class="rounded-circle  " src="{{ url_for('static',filename='img/'+post.profile_pic)}}" height="100" width="100" alt="" class="img-fluid"></td>
+                        
+                        
+                        <td>
+                          <h6><b>User:</b> {{ post.firstname }}</h6>
+                          {% if post.bio %}<p><b>Bio:</b>{{ post.bio }}</p>{% endif %}
+                          <h6><b>Age:</b>{{ post.age }}</h6>
+                          <h6><b>Gender:</b>{{ post.gender }}</h6>
+                          <h6><b>SexualPreference:</b>{{ post.sexualPreference }}</h6>
+                          <!-- <h6><b>Age:</b>{{ post.age }}</h6> -->
+                        </td>
+                                                
+                        <hr>
+                      </tr>
+                    </table>
+                  </div>
+                    <hr>
+                  <div class="container">
+                    {% for i in author.pictures %}
+                    <p>{{ i }}</p>
+                    <td><img class="rounded-circle  " src="{{ url_for('static',filename='img/'+i)}}" height="100" width="100" alt="" class="img-fluid"></td>
+           
+                    {% endfor %}
+
+                  </div>
+
+                
+                <p>
+                </p>
+                </div>
+               
+                
+              
+          
+                <div>
+                    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('update_post',post_id=posts)}}">Update</a>
+                    <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
+                </div>
+         
+                <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="deleteModalLabel">Delete Post?</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <form action="{{ url_for('delete_post',post_id=posts) }}" method="POST">
+                            <input class="btn btn-danger" type="submit" value="Delete">
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+         
+                
+            </div>
+           
+        </div>
+    </div>
+    <script>
+                    
+      const likes = `{{  liked_number }}`
+      const username = `{{ post.username}}`
+  </script>
+</div>
+</article>
+<!-- Modal -->
+{% endblock %}

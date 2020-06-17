@@ -1,0 +1,27 @@
+{% extends 'public/templates/public_templates.html'%}
+
+{% block title %}Welcome{% endblock %}
+
+{% block main%}
+<div class="container">
+  <div class="container darker">
+    <div class="message_holder">
+      
+      {% for i in msg %}
+      <div><b style="color: #000">{{i.user_name}}</b> {{i.message}}</div>
+      {% endfor %}
+   
+    </div>
+<div class="chat"></div>
+   
+</div>
+<div id="input"  class="container darker">
+    <form action="" method="POST">
+        <b id="username" style="color: #000" value="{{user}}" >{{ user }}</b>
+        <input type="text" class="message" placeholder="Messages"/>
+        <input value="Submit" type="submit"/>
+    </form>
+</div>
+</div>
+
+{% endblock %}

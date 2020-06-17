@@ -1,0 +1,80 @@
+{% extends 'public/templates/public_templates.html'%}
+{% import 'macros/input_macros.html' as im%}
+
+{% block title%}Guestbook{% endblock %}
+
+{% block main %}
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h4><strong>update missing information</strong></h4>
+
+      <div class="nb3">
+          <!-- <div class="form-group">
+              {{ im.input(label='Bio',name='bio',id='bio',placeholder='Please enter your biography')}}
+          </div> -->
+          <div class="form-group">
+              {{ im.input(label='Your age',name='age',id='age',placeholder='Please enter your name')}}
+          </div>
+          <div class="form-group">
+              <label>Biography</label>
+              <textarea class="form-control" id="bio" cols="30" rows="3" placeholder="Enter your biography"></textarea>
+          </div>
+          <div class="form-group">
+              {% for posts in users %}
+              <p><b>{{  posts.username }}</p></b>
+              <b><p>{{ posts.age }}</p></b>
+              <a href="{{ url_for('post',post_id=posts.username) }}" id="{{ posts.username }}" class="link" ><img  id="profle" class="rounded-circle " src="{{ url_for('static',filename='img/'+posts.profile_pic)}}" alt="" height="100" width="100" class="img-fluid img-thumbnail"></a>
+              <!-- <button type="button" class="btn btn-danger"><i  name="{{ posts.username }}" id="like"  type="button" class="btn btn-danger" class="fa fa-times"></i> </button> -->
+              <button name="{{ posts.username }}" value="{{ existing_user.username }}" id="like"  type="button" class="btn btn-success"><i class="fa fa-heart"></i></button>
+              <button type="button" class="btn btn-danger"><i class="fa fa-times"></i></button>
+              {% endfor %}
+              <input type="range" name="rangeInput" min="0" max="100" onchange="updateTextInput(this.value);">
+              <input type="text" id="textInput" value="">
+              <script>
+                  function updateTextInput(val) {
+                    document.getElementById('textInput').value=val; 
+                }
+              </script>
+          </div>
+          <button class="btn btn-primary" onclick="submit_entry();">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script>
+    function submit_entry(){
+        var bio = document.getElementById('bio')
+        var age = document.getElementById('age')
+        // var message = document.getElementById('message')
+
+        var entry = {
+            bio: bio.value,
+            age: age.value,
+            // message: message.value
+        };
+     fetch(`${window.origin}/landing/create-entry`,{
+         method:'POST',
+         credentials:'include',
+         body:JSON.stringify(data),
+         cache:'no-cache',
+         headers:new Headers({
+             'content-type':'application/json'
+         })
+     }).then(function(response){
+        if (response.status !== 200){
+            console.log(`Response status was not 200:${response.status}`)
+
+            return ;
+        } 
+        response.json().then(function(data){
+            console.log(data)
+        })
+     })
+    }
+</script>
+{% endblock %}

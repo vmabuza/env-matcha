@@ -1,0 +1,131 @@
+{% extends 'public/templates/public_templates.html'%}
+{% import 'macros/input_macros.html' as im%}
+
+
+{% block title %}{% endblock %}
+
+{% block main %}
+<div class="card ">
+    <div class="container-fluid bg-light">
+        <div class="row">
+            <div class="col">
+
+                <div class="form-group">
+            
+                    <form method="POST" action="">
+                        <!--this add the csrf-->
+                        {{ form.hidden_tag() }}
+                        <fieldset class="form-group">
+                            <legend class="border-bottom mb-4">Login</legend>
+                            
+                            <div class="form-group">
+                                {{ form.username.label(class="form-control-label") }}
+                                
+                                {% if form.username.errors %}
+                                {{ form.username(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.username.errors %}
+                                    <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                                {% else %}
+                                    {{ form.username(class="form-control form-control-lg") }}
+                                {% endif %}
+                                
+                                
+                            </div>
+                            <div class="form-group">
+                                {{ form.password.label(class="form-control-label") }}
+                                {% if form.password.errors %}
+                                {{ form.password(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.password.errors %}
+                                    <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                                {% else %}
+                                {{ form.password(class="form-control form-control-lg") }}
+                                {% endif %}
+                            </div>
+                        </div>
+                            
+                        </fieldset>
+                        <div class="form-group">
+                        {{ form.submit(class="btn-outline-info") }}
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="border-top pt-3">
+                <small class="text-muted">
+                    Don't Have An Account? <a class="ml-2" href="{{ url_for('registration')}}">sign in</a>
+                </small>
+            </div>
+            </div>
+
+        </div>
+
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script>
+    function submit_entry(){
+        var name = document.getElementById('name')
+        var message = document.getElementById('message')
+
+        var entry = {
+            name: name.value,
+            message: message.value
+        };
+     fetch(`${window.origin}/landing/create-entry`,{
+         method:'POST',
+         credentials:'include',
+         body:JSON.stringify(entry),
+         cache:'no-cache',
+         headers:new Headers({
+             'content-type':'application/json'
+         })
+     }).then(function(response){
+        if (response.status !== 200){
+            console.log(`Response status was not 200:${response.status}`)
+
+            return ;
+        } 
+        response.json().then(function(data){
+            console.log(data)
+        })
+     })
+
+    }
+</script>
+{% endblock %}
+
+
+<!-- <div class="container">
+    <div class="row">
+      <div class="col">
+        <h1>Registration</h1>
+  
+        <div class="nb3"> 
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" class="form-control" id="name" placeholder="Enter your name"> 
+                {{ im.input(label='Name',type ='text',name='name',id='name',placeholder='Enter your name')}}
+                {{ im.input(label='User Name',type ='text',name='user-name',id='name',placeholder='Enter your username')}}
+                {{ im.input(label='Email',type ='email',name='email',id='email',placeholder='Enter your email')}}
+                {{ im.input(label='Password',type ='password',name='password',id='password',placeholder='Enter your password')}}
+                {{ im.input(label='Confirm-Password',type ='password',name='confirrmpassword',id='confirm-password',placeholder='Confirm your password')}}
+       
+                
+            </div>
+             <div class="form-group">
+                <label>Message</label>
+                <textarea class="form-control" id="message" cols="30" rows="3" placeholder="Enter your message"></textarea>
+            </div> 
+            <button class="btn btn-primary" onclick="submit_entry();">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div> -->
